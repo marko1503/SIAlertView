@@ -303,6 +303,18 @@ static SIAlertView *__si_alert_current_view;
         CGRect frame = [[UIScreen mainScreen] bounds];
         if([[UIScreen mainScreen] respondsToSelector:@selector(fixedCoordinateSpace)])
         {
+        CGFloat delta = MAX(frame.size.width, frame.size.height) - MIN(frame.size.width, frame.size.height);
+            UIInterfaceOrientation interfaceOrientation = [[UIApplication sharedApplication] statusBarOrientation];
+            if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad) {
+                if (interfaceOrientation == UIInterfaceOrientationLandscapeLeft) {
+                    frame.origin.x = delta;
+                    NSLog(@"OrientationLandscapeLeft");
+                }
+                else if (interfaceOrientation == UIInterfaceOrientationLandscapeRight) {
+                    NSLog(@"OrientationLandscapeRight");
+                    frame.origin.x = -delta;
+                }
+            }
             frame = [[[UIScreen mainScreen] fixedCoordinateSpace] convertRect:frame fromCoordinateSpace:[[UIScreen mainScreen] coordinateSpace]];
         }
         
