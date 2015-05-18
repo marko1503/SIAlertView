@@ -852,7 +852,7 @@ static SIAlertView *__si_alert_current_view;
         
         if ([self.titleLabel.text respondsToSelector:@selector(boundingRectWithSize:options:attributes:context:)]) {
             NSMutableParagraphStyle *paragraphStyle = [[NSMutableParagraphStyle alloc] init];
-            paragraphStyle.lineBreakMode = self.messageLabel.lineBreakMode;
+            paragraphStyle.lineBreakMode = NSLineBreakByWordWrapping;
             
             NSDictionary *attributes = @{NSFontAttributeName:self.messageLabel.font,
                                          NSParagraphStyleAttributeName: paragraphStyle.copy};
@@ -860,7 +860,7 @@ static SIAlertView *__si_alert_current_view;
             // NSString class method: boundingRectWithSize:options:attributes:context is
             // available only on ios7.0 sdk.
             CGRect rect = [self.messageLabel.text boundingRectWithSize:CGSizeMake(CONTAINER_WIDTH - CONTENT_PADDING_LEFT * 2, maxHeight)
-                                                             options:NSStringDrawingUsesLineFragmentOrigin
+                                                             options:NSStringDrawingUsesLineFragmentOrigin | NSStringDrawingUsesFontLeading
                                                           attributes:attributes
                                                              context:nil];
             
